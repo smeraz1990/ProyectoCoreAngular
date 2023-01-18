@@ -1,0 +1,10 @@
+[
+    {
+        "nombre": "Principal",
+        "redirect": "/principal"
+    },
+    {
+        "nombre": "Alumnos",
+        "redirect": "/principal/alumnos"
+    }
+]
