@@ -7,6 +7,7 @@ import { PrincipalComponent } from '../principal/principal.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { AlumnosComponent } from './alumnos/alumnos.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { CrearAlumnoComponent } from './alumnos/crear-alumno/crear-alumno.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     PrincipalComponent,
     InicioComponent,
     AlumnosComponent,
-    NavbarComponent
+    NavbarComponent,
+    CrearAlumnoComponent
   ],
   imports: [
     CommonModule,

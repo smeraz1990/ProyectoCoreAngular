@@ -1,24 +1,10 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { alumno } from 'src/app/interfaces/alumno';
+import { AlumnoService } from 'src/app/services/alumno.service';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 
 @Component({
   selector: 'app-alumnos',
@@ -26,6 +12,38 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./alumnos.component.css']
 })
 export class AlumnosComponent {
-  displayedColumns: string[] = ['ID', 'Nombre', 'Apellido', 'Pais'];
-  dataSource = ELEMENT_DATA;
+  ELEMENT_DATA:alumno[] = []
+  displayedColumns: string[] = ['ID', 'Nombre', 'Apellido', 'Pais', 'Acciones'];
+  dataSource!:MatTableDataSource<any>;
+
+  constructor(private _alumnoService:AlumnoService, private _snackBar: MatSnackBar){}
+
+  ngOnInit():void
+  {
+    this.cargarUsuarios()
+
+  }
+
+  cargarUsuarios()
+  {
+    this.ELEMENT_DATA = this._alumnoService.getUsuario();
+    this.dataSource = new MatTableDataSource (this.ELEMENT_DATA)
+  }
+
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  eliminarUsuario(id:number)
+  {    
+    this._alumnoService.eliminarUsuario(id)
+    this.cargarUsuarios()
+    this._snackBar.open('El usuario fue eliminado con exito','',{
+      duration: 5000,
+      horizontalPosition:'center',
+      verticalPosition: 'bottom'
+    })
+  }
 }
