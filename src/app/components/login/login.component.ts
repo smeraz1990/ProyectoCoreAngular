@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { usuario } from 'src/app/interfaces/usuario';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +14,9 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   form: FormGroup;
   loading= false;
+  datoslogin:usuario[] = []
 
-  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar, private router: Router){
+  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar, private router: Router, private _loginService:LoginService){
     this.form = this.fb.group({
       usuario:['',Validators.required],
       password:['',Validators.required]
@@ -24,18 +27,24 @@ export class LoginComponent {
     const usuario = this.form.value.usuario;
     const password = this.form.value.password;
 
-    if (usuario == "jperez" && password == "admin123" )
-    {
-      //direccionamos para entrar
-      this.login()
-      
-    }
-    else{
-      //direccionamos para error de login
-      this.error()
-      this.form.reset()
+    this._loginService.login(usuario,password).subscribe(data => {
+      this.datoslogin = data
+      if (this.datoslogin.length == 1)
+      {
+        //direccionamos para entrar
+        this.login()
+        
+      }
+      else{
+        //direccionamos para error de login
+        this.error()
+        this.form.reset()
+  
+      }
+    })
 
-    }
+
+   
   }
 
   error(){

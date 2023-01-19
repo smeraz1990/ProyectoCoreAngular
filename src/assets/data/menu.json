@@ -6,5 +6,9 @@
     {
         "nombre": "Alumnos",
         "redirect": "/principal/alumnos"
+    },
+    {
+        "nombre": "Materias",
+        "redirect": "/principal/materias"
     }
 ]

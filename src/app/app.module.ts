@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './components/shared/shared.module';
+//uzar una apirest
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -24,7 +26,8 @@ import { RouteerrorComponent } from './components/routeerror/routeerror.componen
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
 
   ],
   providers: [],
