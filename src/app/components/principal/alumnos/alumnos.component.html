@@ -40,7 +40,10 @@
              <ng-container matColumnDef="Acciones">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let element" style="text-align: right;">
-                    <a class="pointer" (click)="verUsuarios(element.id)" style="color: blue;"  matTooltip="Editar">
+                    <a class="pointer" (click)="verUsuarios(element.id,1)" style="color:green;"  matTooltip="ver detalle">
+                      <mat-icon>badge</mat-icon>
+                    </a>
+                    <a class="pointer" (click)="verUsuarios(element.id,2)" style="color: blue;"  matTooltip="Editar">
                         <mat-icon>edit</mat-icon>
                     </a>
                     <a class="pointer" (click)="eliminarUsuario(element.id)" style="color:red;"  matTooltip="Eliminar">

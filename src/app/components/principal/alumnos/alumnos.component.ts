@@ -19,6 +19,7 @@ export class AlumnosComponent {
   ELEMENT_DATA:alumno[] = []
   displayedColumns: string[] = ['ID', 'Nombre', 'Apellido', 'Pais', 'Acciones'];
   dataSource!:MatTableDataSource<any>;
+  tipoaccion = 0
 
   constructor(private _alumnoService:AlumnoService, private _snackBar: MatSnackBar,public dialog: MatDialog){}
 
@@ -40,11 +41,13 @@ export class AlumnosComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  verUsuarios(id:number)
+  verUsuarios(id:number, tipoaccion:number)
   {
+    this.tipoaccion = tipoaccion
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width= "50%",
-    dialogConfig.data=this._alumnoService.verUsuario(id)
+    dialogConfig.disableClose= true,
+    dialogConfig.data=[{datosusuario: this._alumnoService.verUsuario(id),tipoaccion}]
 
        
     const dialogRef = this.dialog.open(DialogContentAlumnoDialogComponent,dialogConfig);
@@ -84,6 +87,7 @@ export class AlumnosComponent {
 })
 export class DialogContentAlumnoDialogComponent {
   form2!: FormGroup
+  tipoaccion:number
   id:number;
   name:string;
   apellido:string;
@@ -92,10 +96,12 @@ export class DialogContentAlumnoDialogComponent {
   private router:Router,
   private _snackBar: MatSnackBar,
   private dialogRef: MatDialogRef<DialogContentAlumnoDialogComponent>,) {
-    this.id = data[0].id;
-    this.name = data[0].nombre;
-    this.apellido = data[0].apellido;
-    this.pais = data[0].pais;
+    //console.log(data)
+    this.tipoaccion = data[0].tipoaccion;
+    this.id = data[0].datosusuario[0].id;
+    this.name = data[0].datosusuario[0].nombre;
+    this.apellido = data[0].datosusuario[0].apellido;
+    this.pais = data[0].datosusuario[0].pais;
   }
 
   ngOnInit() {

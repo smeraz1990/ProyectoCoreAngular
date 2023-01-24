@@ -11,19 +11,19 @@
             <mat-grid-tile colspan="1" rowspan="1">
                 <mat-form-field class="ancho">
                     <mat-label>Nombre</mat-label>
-                    <input matInput autocomplete="off" formControlName="nombre">
+                    <input matInput autocomplete="off" formControlName="nombre" [readonly]="tipoaccion==1">
                 </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile colspan="1" rowspan="1">
                 <mat-form-field class="ancho">
                     <mat-label>Apellido</mat-label>
-                    <input matInput autocomplete="off" formControlName="apellido">
+                    <input matInput autocomplete="off" formControlName="apellido" [readonly]="tipoaccion==1">
                 </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile colspan="1" rowspan="1">
                 <mat-form-field class="ancho">
                     <mat-label>Pais</mat-label>
-                    <input matInput autocomplete="off" formControlName="pais">
+                    <input matInput autocomplete="off" formControlName="pais" [readonly]="tipoaccion==1">
                 </mat-form-field>
             </mat-grid-tile>
             
@@ -32,5 +32,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button [mat-dialog-close]="form2.value" cdkFocusInitial mat-raised-button color="primary" [disabled]="form2.invalid">Aceptar</button>
+  <button *ngIf="tipoaccion==2" [mat-dialog-close]="form2.value" cdkFocusInitial mat-raised-button color="primary" [disabled]="form2.invalid">Aceptar</button>
 </mat-dialog-actions>
