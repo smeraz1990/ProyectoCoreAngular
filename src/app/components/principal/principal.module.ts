@@ -5,7 +5,7 @@ import { PrincipalRoutingModule } from './principal-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { PrincipalComponent } from '../principal/principal.component';
 import { InicioComponent } from './inicio/inicio.component';
-import { AlumnosComponent } from './alumnos/alumnos.component';
+//import { AlumnosComponent } from './alumnos/alumnos.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CrearAlumnoComponent } from './alumnos/crear-alumno/crear-alumno.component';
 import { MateriasComponent } from './materias/materias.component';
@@ -15,7 +15,7 @@ import { MateriasComponent } from './materias/materias.component';
   declarations: [
     PrincipalComponent,
     InicioComponent,
-    AlumnosComponent,
+    //AlumnosComponent,
     NavbarComponent,
     CrearAlumnoComponent,
     MateriasComponent

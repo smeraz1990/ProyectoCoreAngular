@@ -30,6 +30,25 @@ export class AlumnoService {
     this.ELEMENT_DATA.splice(index, 1);//remove element from array
   }
 
+  ModificarUsuario(datanew: any)
+  {
+    let index = this.ELEMENT_DATA.findIndex(d => d.id === datanew.id)
+    this.ELEMENT_DATA[index] = datanew
+
+    //console.log( this.ELEMENT_DATA)
+    
+    return this.ELEMENT_DATA.slice()
+  }
+
+  
+
+  verUsuario(id:number)
+  {
+    let usuarioData = this.ELEMENT_DATA.filter(d => d.id === id);
+    
+    return usuarioData.slice()
+  }
+
   getmaxidUsuarios()
   {
     const ids = this.ELEMENT_DATA.map(object => {

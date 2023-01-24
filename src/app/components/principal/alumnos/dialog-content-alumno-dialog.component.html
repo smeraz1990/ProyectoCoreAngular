@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Editar Usuario</h2>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="form2">
+        <mat-grid-list cols="1" rowHeight="70px">
+            <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field class="ancho">
+                    <mat-label >ID</mat-label>
+                    <input matInput autocomplete="off" formControlName="id" readonly="true">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field class="ancho">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput autocomplete="off" formControlName="nombre">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field class="ancho">
+                    <mat-label>Apellido</mat-label>
+                    <input matInput autocomplete="off" formControlName="apellido">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field class="ancho">
+                    <mat-label>Pais</mat-label>
+                    <input matInput autocomplete="off" formControlName="pais">
+                </mat-form-field>
+            </mat-grid-tile>
+            
+        </mat-grid-list>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button [mat-dialog-close]="form2.value" cdkFocusInitial mat-raised-button color="primary" [disabled]="form2.invalid">Aceptar</button>
+</mat-dialog-actions>

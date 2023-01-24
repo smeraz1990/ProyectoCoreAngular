@@ -15,6 +15,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 
@@ -35,7 +37,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatTableModule,
     MatTooltipModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule
+    
   ],
   exports: [
     CommonModule,
@@ -52,7 +56,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatTableModule,
     MatTooltipModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule
   ]
 })
 export class SharedModule { }

@@ -1,16 +1,91 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { usuario } from '../interfaces/usuario';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable, catchError, map, mergeMap, of, tap } from 'rxjs';
+import {
+  LoginSuccessful,
+  SingleUserResponse,
+} from 'src/app/interfaces/reqres.interfaces';
+import { User } from 'src/app/models/user.model';
+import { setAuthenticatedUser, unsetAuthenticatedUser } from 'src/app/components/login/store/auth.actions';
+import { AppState } from 'src/app/models/app-state.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+  apiUrl = 'https://reqres.in/api';
 
-  constructor(private httpCliente: HttpClient) { }
+  constructor(
+    private readonly httpClient: HttpClient,
+    private readonly store: Store<AppState>,
+    private readonly router: Router,
+  ) {}
 
-  login(user:string,password:string): Observable<usuario[]>{
-    return this.httpCliente.get<usuario[]>(`https://63c8593b5c0760f69aca6737.mockapi.io/Usuarios?user=${user}&password=${password}`)
+  login(data: { email: string; password: string }): Observable<any> {
+    return this.httpClient
+      .post<LoginSuccessful>(`${this.apiUrl}/login`, data)
+      .pipe(
+        tap((data) => localStorage.setItem('token', data.token)),
+        mergeMap(() =>
+          this.httpClient.get<SingleUserResponse>(`${this.apiUrl}/users/7`)
+        ),
+        map(
+          ({ data }) =>
+            new User(
+              data.id,
+              data.email,
+              data.first_name,
+              data.last_name,
+              data.avatar
+            )
+        ),
+        // tap((user) => this.sessionService.setUser(user))
+        tap(
+          (user) => this.store.dispatch(
+            setAuthenticatedUser({
+              authenticatedUser: user
+            })
+          )
+        )
+      );
+  }
+
+  logOut() {
+    localStorage.removeItem('token');
+    this.store.dispatch(unsetAuthenticatedUser());
+    this.router.navigate(['login']);
+  }
+
+  verifyToken(): Observable<boolean> {
+    const lsToken = localStorage.getItem('token');
+
+    return of(lsToken)
+      .pipe(
+        tap((token) => {
+          if (!token) throw new Error('Token invalido')
+        }),
+        mergeMap((token) =>
+          this.httpClient.get<SingleUserResponse>(`${this.apiUrl}/users/7`)
+        ),
+        tap(({ data }) =>
+          this.store.dispatch(
+            setAuthenticatedUser({
+              authenticatedUser: new User(
+                data.id,
+                data.email,
+                data.first_name,
+                data.last_name,
+                data.avatar
+              )
+            })
+          )
+        ),
+        map((user) => !!user),
+        catchError(() => of(false))
+      )
   }
 }
+
+

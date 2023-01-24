@@ -1,6 +1,6 @@
 export interface usuario
 {
-    id: number,
     user: string,
-    password: string
+    password: string,
+    token: string
 }

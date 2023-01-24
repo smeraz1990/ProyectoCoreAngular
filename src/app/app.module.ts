@@ -8,11 +8,16 @@ import { SharedModule } from './components/shared/shared.module';
 //uzar una apirest
 import { HttpClientModule } from '@angular/common/http';
 
+import { AppStoreModule } from './app-store.module';
+import { EffectsModule } from '@ngrx/effects';
+
 
 
 //Componentes
 import { LoginComponent } from './components/login/login.component';
 import { RouteerrorComponent } from './components/routeerror/routeerror.component';
+
+import {AlumnosComponent, DialogContentAlumnoDialogComponent} from '../app/components/principal/alumnos/alumnos.component';
 
 
 
@@ -21,16 +26,20 @@ import { RouteerrorComponent } from './components/routeerror/routeerror.componen
     AppComponent,
     LoginComponent,
     RouteerrorComponent,
+    AlumnosComponent, 
+    DialogContentAlumnoDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    AppStoreModule
 
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  entryComponents: [AlumnosComponent, DialogContentAlumnoDialogComponent],
+  bootstrap: [AppComponent],
+  providers: []
 })
 export class AppModule { }
