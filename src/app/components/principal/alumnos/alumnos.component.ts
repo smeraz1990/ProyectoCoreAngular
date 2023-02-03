@@ -31,8 +31,10 @@ export class AlumnosComponent {
 
   cargarUsuarios()
   {
-    this.ELEMENT_DATA = this._alumnoService.getUsuario();
-    this.dataSource = new MatTableDataSource (this.ELEMENT_DATA)
+    this._alumnoService.getAlumnos().subscribe(data => {
+      this.ELEMENT_DATA = data
+      this.dataSource = new MatTableDataSource (this.ELEMENT_DATA)
+    })
   }
 
 
@@ -43,36 +45,53 @@ export class AlumnosComponent {
 
   verUsuarios(id:number, tipoaccion:number)
   {
-    this.tipoaccion = tipoaccion
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.width= "50%",
-    dialogConfig.disableClose= true,
-    dialogConfig.data=[{datosusuario: this._alumnoService.verUsuario(id),tipoaccion}]
-
-       
-    const dialogRef = this.dialog.open(DialogContentAlumnoDialogComponent,dialogConfig);
-
-
-    
-
-    dialogRef.afterClosed().subscribe(result => {
-      //let datos = JSON.stringify(result)
-      this._alumnoService.ModificarUsuario(result)
-      this.cargarUsuarios()
-      //console.log(`Dialog result: ${datos}`);
-      //console.log(`Dialog result: ${result.id}`);
-    }); 
+    let data
+    this._alumnoService.verUsuario(id).subscribe((data: any) => {
+      data = data
+      this.tipoaccion = tipoaccion
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.width= "50%",
+      dialogConfig.disableClose= true,
+      dialogConfig.data=[
+        {datosusuario: data,tipoaccion}
+      ]
+  
+         
+      const dialogRef = this.dialog.open(DialogContentAlumnoDialogComponent,dialogConfig);
+  
+  
+      
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this._alumnoService.ModificarUsuario(result).subscribe((data: any) => {
+            this.cargarUsuarios()
+            this._snackBar.open('El alumno fue modificado con exito','',{
+              duration: 5000,
+              horizontalPosition:'center',
+              verticalPosition: 'bottom'
+            })
+          })
+        }
+        
+        //console.log(`Dialog result: ${datos}`);
+        //console.log(`Dialog result: ${result.id}`);
+      }); 
+    })
     
   }
+  
 
   eliminarUsuario(id:number)
   {    
-    this._alumnoService.eliminarUsuario(id)
-    this.cargarUsuarios()
-    this._snackBar.open('El usuario fue eliminado con exito','',{
-      duration: 5000,
-      horizontalPosition:'center',
-      verticalPosition: 'bottom'
+    this._alumnoService.eliminarUsuario(id).subscribe(data=>{
+      this.cargarUsuarios()
+      this._snackBar.open(`El usuario con id ${id} fue eliminado con exito`,'',{
+        duration: 5000,
+        horizontalPosition:'center',
+        verticalPosition: 'bottom'
+      })
+
     })
   }
   
@@ -96,22 +115,22 @@ export class DialogContentAlumnoDialogComponent {
   private router:Router,
   private _snackBar: MatSnackBar,
   private dialogRef: MatDialogRef<DialogContentAlumnoDialogComponent>,) {
-    //console.log(data)
+    //console.log("aqui estamos",data)
     this.tipoaccion = data[0].tipoaccion;
-    this.id = data[0].datosusuario[0].id;
-    this.name = data[0].datosusuario[0].nombre;
-    this.apellido = data[0].datosusuario[0].apellido;
-    this.pais = data[0].datosusuario[0].pais;
+    this.id = data[0].datosusuario.ID;
+    this.name = data[0].datosusuario.Nombre;
+    this.apellido = data[0].datosusuario.Apellido;
+    this.pais = data[0].datosusuario.Pais;
   }
 
   ngOnInit() {
     //console.log("datos",this.description)
     this.form2 = this.fb.group(
       {
-        id: [this.id,Validators.required],
-        nombre: [this.name,Validators.required],
-        apellido: [this.apellido,Validators.required],
-        pais: [this.pais,Validators.required],
+        ID: [this.id,Validators.required],
+        Nombre: [this.name,Validators.required],
+        Apellido: [this.apellido,Validators.required],
+        Pais: [this.pais,Validators.required],
       }
     )
 

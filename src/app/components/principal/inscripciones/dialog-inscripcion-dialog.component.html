@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Editar Curso</h2>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="form2">
+        <mat-grid-list cols="1" rowHeight="70px">
+            <mat-form-field appearance="fill">
+                <mat-label>Agregar Curso</mat-label>
+                <mat-select formControlName="cbxCursos">
+                  <mat-option *ngFor="let curso of cursos" [value]="curso.ID">
+                    {{curso.Nombre}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>         
+        </mat-grid-list>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button type="button" (click)="submitButtonClick(form2.value)" mat-raised-button color="primary" [disabled]="form2.invalid">Aceptar</button>
+</mat-dialog-actions>

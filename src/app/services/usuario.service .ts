@@ -1,45 +1,45 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { filter, map, Observable } from 'rxjs';
-import { alumno } from '../interfaces/alumno';
+import { usuario } from '../interfaces/usuario';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AlumnoService {
+export class UsuarioService {
 
 
   constructor(private httpCliente: HttpClient) { }
 
-  getAlumnos(): Observable<alumno[]>{
-    return this.httpCliente.get<alumno[]>("https://63c8593b5c0760f69aca6737.mockapi.io/Alumnos")
+  getUsuarios(): Observable<usuario[]>{
+    return this.httpCliente.get<usuario[]>("https://63c8593b5c0760f69aca6737.mockapi.io/Usuarios")
   }
 
   eliminarUsuario(id:number): Observable<void>
   {
-    return this.httpCliente.delete<void>(`https://63c8593b5c0760f69aca6737.mockapi.io/Alumnos/${id}`)
+    return this.httpCliente.delete<void>(`https://63c8593b5c0760f69aca6737.mockapi.io/Usuarios/${id}`)
     //let index = this.ELEMENT_DATA.findIndex(d => d.id === id); //find index in your array
     //this.ELEMENT_DATA.splice(index, 1);//remove element from array
   }
 
-  ModificarUsuario(datanew: alumno): Observable<void>
+  ModificarUsuario(datanew: usuario): Observable<void>
   {
     //console.log("datos a guardar", datanew.id)
-    return this.httpCliente.put<void>(`https://63c8593b5c0760f69aca6737.mockapi.io/Alumnos/${datanew.ID}`, datanew)
+    return this.httpCliente.put<void>(`https://63c8593b5c0760f69aca6737.mockapi.io/Usuarios/${datanew.ID}`, datanew)
     
   }
 
   
 
-  verUsuario(id:number): Observable<alumno[]>
+  verUsuario(id:number): Observable<usuario[]>
   {
-    return this.httpCliente.get<alumno[]>(`https://63c8593b5c0760f69aca6737.mockapi.io/Alumnos/${id}`)
+    return this.httpCliente.get<usuario[]>(`https://63c8593b5c0760f69aca6737.mockapi.io/Usuarios/${id}`)
   }
 
   getmaxidUsuarios()
   {
     return this.httpCliente
-    .get<alumno[]>("https://63c8593b5c0760f69aca6737.mockapi.io/Alumnos")
+    .get<usuario[]>("https://63c8593b5c0760f69aca6737.mockapi.io/Usuarios")
     .pipe(
       map(data =>{
         if(data.length > 0)
@@ -57,9 +57,9 @@ export class AlumnoService {
 
   }
 
-  agregarusuario(alumno:alumno)
+  agregarusuario(alumno:usuario)
   {
-    return this.httpCliente.post<alumno[]>(`https://63c8593b5c0760f69aca6737.mockapi.io/Alumnos`, alumno)
+    return this.httpCliente.post<usuario[]>(`https://63c8593b5c0760f69aca6737.mockapi.io/Usuarios`, alumno)
     //this.ELEMENT_DATA.push(alumno)
   }
 }

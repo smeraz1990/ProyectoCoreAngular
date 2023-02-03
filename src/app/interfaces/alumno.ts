@@ -1,7 +1,7 @@
 export interface alumno
 {
-    id: number,
-    nombre: string,
-    apellido: string,
-    pais: string
+    ID: number,
+    Nombre: string,
+    Apellido: string,
+    Pais: string
 }

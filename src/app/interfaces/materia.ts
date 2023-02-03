@@ -1,5 +1,6 @@
 export interface materia{
-    nombre:string,
-    maestro:string,
-    horario:string
+    ID: number,
+    Nombre:string,
+    Maestro:string,
+    Horario:string
 }

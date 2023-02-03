@@ -1,6 +1,10 @@
 export interface usuario
 {
-    user: string,
-    password: string,
-    token: string
+    ID: number,
+    Email: string,
+    First_name: string,
+    Last_name: string,
+    Password: string,
+    Token: string,
+    Bitadmin: number
 }

@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Editar Usuario</h2>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="form2">
+        <mat-grid-list cols="1" rowHeight="100px">
+            <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field class="ancho">
+                    <mat-label >ID</mat-label>
+                    <input matInput autocomplete="off" formControlName="ID" readonly="true">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field class="ancho">
+                    <mat-label>Email</mat-label>
+                    <input matInput autocomplete="off" formControlName="Email" [readonly]="tipoaccion==1">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field class="ancho">
+                    <mat-label>Password</mat-label>
+                    <input matInput autocomplete="off" formControlName="Password" [readonly]="tipoaccion==1">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field class="ancho">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput autocomplete="off" formControlName="First_name" [readonly]="tipoaccion==1">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field class="ancho">
+                    <mat-label>Apellido</mat-label>
+                    <input matInput autocomplete="off" formControlName="Last_name" [readonly]="tipoaccion==1">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field class="ancho">
+                    <mat-label>Token</mat-label>
+                    <input matInput autocomplete="off" formControlName="Token" [readonly]="tipoaccion==1">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field>
+                    <mat-label></mat-label>
+                    <mat-slide-toggle formControlName = "Bitadmin" ><span class="text-invisible">Administrador</span></mat-slide-toggle>
+                    <textarea matInput hidden></textarea>
+                  </mat-form-field>
+          
+            </mat-grid-tile>
+            
+        </mat-grid-list>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button *ngIf="tipoaccion===2 || tipoaccion === 0" [mat-dialog-close]="form2.value" cdkFocusInitial mat-raised-button color="primary" [disabled]="form2.invalid">Aceptar</button>
+</mat-dialog-actions>

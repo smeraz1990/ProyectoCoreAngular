@@ -8,7 +8,6 @@ import { InicioComponent } from './inicio/inicio.component';
 //import { AlumnosComponent } from './alumnos/alumnos.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CrearAlumnoComponent } from './alumnos/crear-alumno/crear-alumno.component';
-import { MateriasComponent } from './materias/materias.component';
 
 
 @NgModule({
@@ -17,8 +16,7 @@ import { MateriasComponent } from './materias/materias.component';
     InicioComponent,
     //AlumnosComponent,
     NavbarComponent,
-    CrearAlumnoComponent,
-    MateriasComponent
+    CrearAlumnoComponent
   ],
   imports: [
     CommonModule,

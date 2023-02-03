@@ -33,8 +33,17 @@ export class NavbarComponent implements OnDestroy {
 
   cargarmenu()
   {
+    let bitadmin = localStorage.getItem('bitadmin')
     this._menuService.getMenu().subscribe(data => {
-      this.menu = data
+      if (bitadmin == "1")
+      {
+        this.menu = data
+      }
+      else
+      {
+        this.menu = data.filter(menufilt => menufilt.bitadmin == "0")
+      }
+      
     })
   }
 

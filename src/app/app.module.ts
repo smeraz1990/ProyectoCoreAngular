@@ -9,6 +9,8 @@ import { SharedModule } from './components/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppStoreModule } from './app-store.module';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 
 
@@ -18,6 +20,10 @@ import { LoginComponent } from './components/login/login.component';
 import { RouteerrorComponent } from './components/routeerror/routeerror.component';
 
 import {AlumnosComponent, DialogContentAlumnoDialogComponent} from '../app/components/principal/alumnos/alumnos.component';
+import {MateriasComponent, DialogCursoComponent} from '../app/components/principal/materias/materias.component'
+import {InscripcionesComponent, DialogInscripcionComponent} from '../app/components/principal/inscripciones/inscripciones.component'
+import {UsuariosComponent,DialogContentUsuarioDialogComponent} from '../app/components/principal/usuarios/usuarios.component'
+import { SiNoPipe } from './si-no.pipe';
 
 
 
@@ -27,7 +33,15 @@ import {AlumnosComponent, DialogContentAlumnoDialogComponent} from '../app/compo
     LoginComponent,
     RouteerrorComponent,
     AlumnosComponent, 
-    DialogContentAlumnoDialogComponent
+    DialogContentAlumnoDialogComponent,
+    MateriasComponent,
+    DialogCursoComponent,
+    InscripcionesComponent,
+    DialogInscripcionComponent,
+    UsuariosComponent,
+    DialogContentUsuarioDialogComponent,
+    SiNoPipe
+
   ],
   imports: [
     BrowserModule,
@@ -35,10 +49,16 @@ import {AlumnosComponent, DialogContentAlumnoDialogComponent} from '../app/compo
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
-    AppStoreModule
+    AppStoreModule,
+    StoreModule,
+    StoreDevtoolsModule,
+    EffectsModule
 
   ],
-  entryComponents: [AlumnosComponent, DialogContentAlumnoDialogComponent],
+  entryComponents: [AlumnosComponent, DialogContentAlumnoDialogComponent,
+                    MateriasComponent,DialogCursoComponent,
+                    InscripcionesComponent,DialogInscripcionComponent,
+                    UsuariosComponent,DialogContentUsuarioDialogComponent],
   bootstrap: [AppComponent],
   providers: []
 })

@@ -1,14 +1,22 @@
 [
     {
         "nombre": "Principal",
-        "redirect": "/principal"
+        "redirect": "/principal",
+        "bitadmin": "0"
+    },
+    {
+        "nombre": "Usuarios",
+        "redirect": "/principal/usuarios",
+        "bitadmin": "1"
     },
     {
         "nombre": "Alumnos",
-        "redirect": "/principal/alumnos"
+        "redirect": "/principal/alumnos",
+        "bitadmin": "0"
     },
     {
-        "nombre": "Materias",
-        "redirect": "/principal/materias"
+        "nombre": "Cursos",
+        "redirect": "/principal/materias",
+        "bitadmin": "0"
     }
 ]

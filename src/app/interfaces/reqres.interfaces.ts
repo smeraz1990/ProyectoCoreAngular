@@ -1,13 +1,18 @@
 export interface LoginSuccessful {
-  token: string;
+  Email: string,
+  Password:string
+  Token: string;
 }
 
 export interface IUser {
-  id: number;
-  email: string;
-  first_name: string;
-  last_name: string;
-  avatar: string;
+  ID: number;
+  Email: string;
+  First_name: string;
+  Last_name: string;
+  Avatar: string;
+  Password: string;
+  Token : string;
+  Bitadmin: string
 }
 
 export interface SingleUserResponse {

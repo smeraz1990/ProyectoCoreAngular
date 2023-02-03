@@ -2,7 +2,7 @@
     <mat-toolbar>
         <span>Alumnos</span>
         <div class="example-spacer"></div>
-        <button mat-raised-button color="primary" routerLink="/principal/crear-usuario">Agregar</button>
+        <button mat-raised-button color="primary" (click)="agregarUsuarioModal(0,0)">Agregar</button>
     </mat-toolbar>
     <div *ngIf="ELEMENT_DATA.length > 0">
         <mat-form-field>
@@ -19,30 +19,34 @@
             </ng-container>
           
             <!-- Nombre Column -->
-            <ng-container matColumnDef="Nombre">
-              <th mat-header-cell *matHeaderCellDef> Nombre </th>
-              <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
+            <ng-container matColumnDef="Email">
+              <th mat-header-cell *matHeaderCellDef> Email </th>
+              <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
             </ng-container>
           
             <!-- Apellido Column -->
-            <ng-container matColumnDef="Apellido">
-              <th mat-header-cell *matHeaderCellDef> Apellido </th>
-              <td mat-cell *matCellDef="let element"> {{element.Apellido}} </td>
+            <ng-container matColumnDef="Password">
+              <th mat-header-cell *matHeaderCellDef> Password </th>
+              <td mat-cell *matCellDef="let element"> {{element.Password}} </td>
             </ng-container>
           
             <!-- Pais Column -->
-            <ng-container matColumnDef="Pais">
-              <th mat-header-cell *matHeaderCellDef> Pais </th>
-              <td mat-cell *matCellDef="let element"> {{element.Pais}} </td>
+            <ng-container matColumnDef="Token">
+              <th mat-header-cell *matHeaderCellDef> Token </th>
+              <td mat-cell *matCellDef="let element"> {{element.Token}} </td>
             </ng-container>
+            <ng-container matColumnDef="Admin">
+                <th mat-header-cell *matHeaderCellDef> Admin? </th>
+                <td mat-cell *matCellDef="let element"> {{element.Bitadmin | siNo}} </td>
+                  
+              </ng-container>
+
     
              <!-- acciones Column -->
              <ng-container matColumnDef="Acciones">
-                <th mat-header-cell *matHeaderCellDef></th>
+                <th mat-header-cell *matHeaderCellDef>Acciones</th>
                 <td mat-cell *matCellDef="let element" style="text-align: right;">
-                    <a class="pointer" style="color:green;" routerLink="/principal/Inscripciones/{{element.ID}}"  matTooltip="Inscripciones">
-                      <mat-icon>add_circle</mat-icon>
-                    </a>
+                    <div *ngIf="element.ID != 1 || element.ID != usuarioid">
                     <a class="pointer" (click)="verUsuarios(element.ID,1)" style="color:grey;"  matTooltip="ver detalle">
                       <mat-icon>badge</mat-icon>
                     </a>
@@ -52,6 +56,7 @@
                     <a class="pointer" (click)="eliminarUsuario(element.ID)" style="color:red;"  matTooltip="Eliminar">
                         <mat-icon>delete</mat-icon>
                     </a>
+                </div>
                 </td>
               </ng-container>
           

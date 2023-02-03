@@ -29,8 +29,24 @@ export class CrearAlumnoComponent {
 
  agregarUsuario()
  {
-  let id = this._alumnoService.getmaxidUsuarios()
-  const alumnos:alumno = {
+   this._alumnoService.getmaxidUsuarios().subscribe((id: any) => {
+    //console.log("Esta es la info regresada",data)
+    const alumnos:alumno = {
+      ID: id + 1,
+      Nombre: this.form.value.nombre,
+      Apellido: this.form.value.apellido,
+      Pais: this.form.value.pais
+    }
+    this._alumnoService.agregarusuario(alumnos).subscribe((registro)=>{
+      this.router.navigate(['/principal/alumnos'])
+      this._snackBar.open('El alumno fue agregado con exito','',{
+        duration: 5000,
+        horizontalPosition:'center',
+        verticalPosition: 'bottom'
+      })
+    })
+  })
+  /* const alumnos:alumno = {
     id: id + 1,
     nombre: this.form.value.nombre,
     apellido: this.form.value.apellido,
@@ -42,7 +58,7 @@ export class CrearAlumnoComponent {
     duration: 5000,
     horizontalPosition:'center',
     verticalPosition: 'bottom'
-  })
+  }) */
  }
  
 }

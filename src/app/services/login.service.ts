@@ -2,14 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, catchError, map, mergeMap, of, tap } from 'rxjs';
+import { Observable, catchError, map, mergeMap, of, tap, find, filter } from 'rxjs';
 import {
+  IUser,
   LoginSuccessful,
   SingleUserResponse,
 } from 'src/app/interfaces/reqres.interfaces';
 import { User } from 'src/app/models/user.model';
 import { setAuthenticatedUser, unsetAuthenticatedUser } from 'src/app/components/login/store/auth.actions';
 import { AppState } from 'src/app/models/app-state.model';
+import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +25,48 @@ export class LoginService {
     private readonly router: Router,
   ) {}
 
-  login(data: { email: string; password: string }): Observable<any> {
+  login(idlogin: number): Observable<any> {
     return this.httpClient
+    .get<SingleUserResponse>(`https://63c8593b5c0760f69aca6737.mockapi.io/Usuarios/${idlogin}`)
+    .pipe(
+      tap(({data}) => {
+        localStorage.setItem('token', data.Token)
+        localStorage.setItem('bitadmin', data.Bitadmin)
+        localStorage.setItem('iduser', String(data.ID))
+      }
+      ),
+      map(
+        ({ data }) =>
+          new User(
+            data.ID,
+            data.Email,
+            data.First_name,
+            data.Last_name,
+            data.Password,    
+            data.Token,
+            data.Bitadmin
+          )
+      ),
+      tap(
+        (user) => this.store.dispatch(
+          setAuthenticatedUser({
+            authenticatedUser: user
+          })
+        )
+      ) 
+    )
+  }
+
+  getusuarios(): Observable<any> {
+    return this.httpClient
+    .get<SingleUserResponse>(`https://63c8593b5c0760f69aca6737.mockapi.io/Usuarios`)
+    .pipe(
+     tap(({data}) => data )
+    )
+  
+  
+      
+   /*  return this.httpClient
       .post<LoginSuccessful>(`${this.apiUrl}/login`, data)
       .pipe(
         tap((data) => localStorage.setItem('token', data.token)),
@@ -38,7 +80,7 @@ export class LoginService {
               data.email,
               data.first_name,
               data.last_name,
-              data.avatar
+              data.avatar,
             )
         ),
         // tap((user) => this.sessionService.setUser(user))
@@ -49,7 +91,7 @@ export class LoginService {
             })
           )
         )
-      );
+      ); */
   }
 
   logOut() {
@@ -73,11 +115,13 @@ export class LoginService {
           this.store.dispatch(
             setAuthenticatedUser({
               authenticatedUser: new User(
-                data.id,
-                data.email,
-                data.first_name,
-                data.last_name,
-                data.avatar
+                data.ID,
+                data.Email,
+                data.First_name,
+                data.Last_name,
+                data.Password,
+                data.Token,
+                data.Bitadmin
               )
             })
           )

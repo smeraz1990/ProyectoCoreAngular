@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap } from 'rxjs/operators';
 import { Observable, EMPTY, of } from 'rxjs';
 import * as UserActions from './user.actions';
-import { User } from '../../models/user2.model'
+import { User } from '../../../../models/user2.model'
 
 export interface UsersListResponse {
   page:        number;
