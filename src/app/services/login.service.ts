@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, catchError, map, mergeMap, of, tap, find, filter } from 'rxjs';
@@ -97,7 +97,7 @@ export class LoginService {
   logOut() {
     localStorage.removeItem('token');
     this.store.dispatch(unsetAuthenticatedUser());
-    this.router.navigate(['login']);
+    //this.router.navigate(['login']);
   }
 
   verifyToken(): Observable<boolean> {

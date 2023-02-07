@@ -15,6 +15,7 @@ import { User } from 'src/app/models/user2.model'
 })
 export class NavbarComponent implements OnDestroy {
   @Output() toggleSidebar = new EventEmitter()
+  usuariolog = ""
   menu: menu[] = []
   public user: Observable<User | null>;
   constructor(private _menuService: MenuService,
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnDestroy {
   }
 
   ngOnInit(): void{
+    this.usuariolog =  String(localStorage.getItem('bitadmin'))
     this.cargarmenu()
   }
 
