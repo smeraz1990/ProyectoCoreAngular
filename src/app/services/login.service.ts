@@ -33,6 +33,7 @@ export class LoginService {
         localStorage.setItem('token', data.Token)
         localStorage.setItem('bitadmin', data.Bitadmin)
         localStorage.setItem('iduser', String(data.ID))
+        localStorage.setItem('userlog', `${data.First_name} ${data.Last_name}`)
       }
       ),
       map(
@@ -97,7 +98,7 @@ export class LoginService {
   logOut() {
     localStorage.removeItem('token');
     this.store.dispatch(unsetAuthenticatedUser());
-    //this.router.navigate(['login']);
+    this.router.navigate(['login']);
   }
 
   verifyToken(): Observable<boolean> {

@@ -25,7 +25,7 @@ export class NavbarComponent implements OnDestroy {
   }
 
   ngOnInit(): void{
-    this.usuariolog =  String(localStorage.getItem('bitadmin'))
+    this.usuariolog =  String(localStorage.getItem('userlog'))
     this.cargarmenu()
   }
 
